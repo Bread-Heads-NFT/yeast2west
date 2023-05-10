@@ -52,7 +52,8 @@ export default {
                 'node_modules/phaser/src/phaser-esm.js'
             ],
             sourceMap: true,
-            ignoreGlobal: true
+            ignoreGlobal: true,
+            requireReturnsDefault: 'auto'
         }),
 
         //  See https://github.com/rollup/plugins/tree/master/packages/typescript for config options
@@ -62,8 +63,8 @@ export default {
         serve({
             open: true,
             contentBase: 'dist',
-            host: 'localhost',
-            port: 10001,
+            host: '0.0.0.0',
+            port: 3001,
             headers: {
                 'Access-Control-Allow-Origin': '*'
             }

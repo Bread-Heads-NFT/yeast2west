@@ -1,47 +1,59 @@
 import * as Phaser from 'phaser';
+import { config, DEFAULT_HEIGHT, DEFAULT_WIDTH, MAX_HEIGHT, MAX_WIDTH, SCALE_MODE } from './config';
 
-export default class Demo extends Phaser.Scene
-{
-    constructor ()
-    {
-        super('demo');
-    }
+window.addEventListener('load', () => {
+    const game = new Phaser.Game(config);
+    let loadingScreen = document.getElementById('loading-screen');
+    loadingScreen.style.visibility = 'hidden';
 
-    preload ()
-    {
-        this.load.image('logo', 'assets/phaser3-logo.png');
-        this.load.image('libs', 'assets/libs.png');
-        this.load.glsl('bundle', 'assets/plasma-bundle.glsl.js');
-        this.load.glsl('stars', 'assets/starfields.glsl.js');
-    }
+    // the custom resize function
+    // const resize = () => {
+    //     const w = window.innerWidth
+    //     const h = window.innerHeight
 
-    create ()
-    {
-        this.add.shader('RGB Shift Field', 0, 0, 800, 600).setOrigin(0);
+    //     let width = DEFAULT_WIDTH
+    //     let height = DEFAULT_HEIGHT
+    //     let maxWidth = MAX_WIDTH
+    //     let maxHeight = MAX_HEIGHT
+    //     let scaleMode = SCALE_MODE
 
-        this.add.shader('Plasma', 0, 412, 800, 172).setOrigin(0);
+    //     let scale = Math.min(w / width, h / height)
+    //     let newWidth = Math.min(w / scale, maxWidth)
+    //     let newHeight = Math.min(h / scale, maxHeight)
 
-        this.add.image(400, 300, 'libs');
+    //     let defaultRatio = DEFAULT_WIDTH / DEFAULT_HEIGHT
+    //     let maxRatioWidth = MAX_WIDTH / DEFAULT_HEIGHT
+    //     let maxRatioHeight = DEFAULT_WIDTH / MAX_HEIGHT
 
-        const logo = this.add.image(400, 70, 'logo');
+    //     // smooth scaling
+    //     let smooth = 1
+    //     if (scaleMode === 'SMOOTH') {
+    //         const maxSmoothScale = 1.15
+    //         const normalize = (value: number, min: number, max: number) => {
+    //             return (value - min) / (max - min)
+    //         }
+    //         if (width / height < w / h) {
+    //             smooth =
+    //                 -normalize(newWidth / newHeight, defaultRatio, maxRatioWidth) / (1 / (maxSmoothScale - 1)) + maxSmoothScale
+    //         } else {
+    //             smooth =
+    //                 -normalize(newWidth / newHeight, defaultRatio, maxRatioHeight) / (1 / (maxSmoothScale - 1)) + maxSmoothScale
+    //         }
+    //     }
 
-        this.tweens.add({
-            targets: logo,
-            y: 350,
-            duration: 1500,
-            ease: 'Sine.inOut',
-            yoyo: true,
-            repeat: -1
-        })
-    }
-}
+    //     // resize the game
+    //     game.scale.resize(newWidth * smooth, newHeight * smooth)
 
-const config = {
-    type: Phaser.AUTO,
-    backgroundColor: '#125555',
-    width: 800,
-    height: 600,
-    scene: Demo
-};
+    //     // scale the width and height of the css
+    //     game.canvas.style.width = newWidth * scale + 'px'
+    //     game.canvas.style.height = newHeight * scale + 'px'
 
-const game = new Phaser.Game(config);
+    //     // center the game with css margin
+    //     game.canvas.style.marginTop = `${(h - newHeight * scale) / 2}px`
+    //     game.canvas.style.marginLeft = `${(w - newWidth * scale) / 2}px`
+    // }
+    // window.addEventListener('resize', event => {
+    //     resize()
+    // })
+    // resize()
+});
